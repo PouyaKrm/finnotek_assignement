@@ -64,6 +64,7 @@ public class UserLinkServiceImpl implements UserLinkService {
 
     @Override
     public Optional<UserLink> findLinkByHash(String hash) {
-        return userLinkRepository.findUnexpiredLinkByHash(hash);
+        var userLink = userLinkRepository.findUnexpiredLinkByHash(hash);
+        return Optional.ofNullable(userLink);
     }
 }

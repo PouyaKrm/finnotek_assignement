@@ -4,8 +4,10 @@ import com.finnotek.assignment.config.Constants;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.Serializable;
+
 @Document(Constants.USER_LINK_MONGO_COLLECTION_NAME)
-public class UserLink {
+public class UserLink implements Serializable {
 
     private String id;
 

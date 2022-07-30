@@ -5,5 +5,5 @@ import com.finnotek.assignment.domain.UserLink;
 import java.util.Optional;
 
 public interface UserLinkRepositoryCustom {
-    Optional<UserLink> findUnexpiredLinkByHash(String hash);
+    UserLink findUnexpiredLinkByHash(String hash);
 }

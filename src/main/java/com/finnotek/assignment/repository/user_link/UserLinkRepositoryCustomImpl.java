@@ -3,6 +3,7 @@ package com.finnotek.assignment.repository.user_link;
 import com.finnotek.assignment.config.Constants;
 import com.finnotek.assignment.domain.User;
 import com.finnotek.assignment.domain.UserLink;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -22,14 +23,15 @@ public class UserLinkRepositoryCustomImpl implements UserLinkRepositoryCustom {
     }
 
     @Override
-    public Optional<UserLink> findUnexpiredLinkByHash(String hash) {
+    @Cacheable("links")
+    public UserLink findUnexpiredLinkByHash(String hash) {
         var matchCriteria = Criteria.where(HASH).is(hash).and(EXPIRE_DATE).is(null);
         var or = new Criteria();
         or.orOperator(Criteria.where(EXPIRE_DATE).is(null), Criteria.where(EXPIRE_DATE).gt(new Date()));
         matchCriteria.andOperator(or);
         var q = new Query(matchCriteria);
         var result = mongoTemplate.findOne(q, UserLink.class, Constants.USER_LINK_MONGO_COLLECTION_NAME);
-        return Optional.ofNullable(result);
+        return result;
     }
 
 }

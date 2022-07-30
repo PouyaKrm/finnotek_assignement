@@ -57,7 +57,7 @@ server:
 jhipster:
   cache: # Cache configuration
     hazelcast: # Hazelcast distributed cache
-      time-to-live-seconds: 3600
+      time-to-live-seconds: 10
       backup-count: 1
   # CORS is only enabled by default with the "dev" profile
   cors:
