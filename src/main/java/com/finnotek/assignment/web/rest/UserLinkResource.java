@@ -1,6 +1,6 @@
 package com.finnotek.assignment.web.rest;
 
-import com.finnotek.assignment.security.SecurityUtils;
+import com.finnotek.assignment.security.AuthenticationUtils;
 import com.finnotek.assignment.service.UserLinkService;
 import com.finnotek.assignment.service.dto.UserLinkRequestDTO;
 import com.finnotek.assignment.service.dto.UserLinkResponeDTO;
@@ -18,17 +18,18 @@ public class UserLinkResource {
 
 
     private final UserLinkService userLinkService;
+    private final AuthenticationUtils authenticationUtils;
 
-    public UserLinkResource(UserLinkService userLinkService) {
+    public UserLinkResource(UserLinkService userLinkService, AuthenticationUtils authenticationUtils) {
         this.userLinkService = userLinkService;
+        this.authenticationUtils = authenticationUtils;
     }
 
     @PostMapping("shorten")
     public UserLinkResponeDTO shorten(@Valid @RequestBody UserLinkRequestDTO dto, Principal principal) {
-        var user = SecurityUtils.getCurrentUserLogin().get();
-        System.out.println(user);
-       return userLinkService.addNewLink("1", dto);
-//        return null;
+        var user = authenticationUtils.getAuthenticatedUser();
+        var userId = user.isPresent() ? user.get().getId() : "1";
+        return userLinkService.addNewLink(userId, dto);
     }
 
 }

@@ -2,6 +2,7 @@ package com.finnotek.assignment.service;
 
 import com.finnotek.assignment.domain.UserLink;
 import com.finnotek.assignment.repository.user_link.UserLinkRepository;
+import com.finnotek.assignment.security.AuthenticationUtils;
 import com.finnotek.assignment.service.dto.UserLinkRequestDTO;
 
 import java.nio.charset.StandardCharsets;
@@ -27,10 +28,12 @@ public class UserLinkServiceImpl implements UserLinkService {
     private final UserLinkRepository userLinkRepository;
 
     private final UserLinkMapper userLinkMapper;
+    private final AuthenticationUtils authenticationUtils;
 
-    public UserLinkServiceImpl(UserLinkRepository userLinkRepository, UserLinkMapper userLinkMapper) {
+    public UserLinkServiceImpl(UserLinkRepository userLinkRepository, UserLinkMapper userLinkMapper, AuthenticationUtils authenticationUtils) {
         this.userLinkRepository = userLinkRepository;
         this.userLinkMapper = userLinkMapper;
+        this.authenticationUtils = authenticationUtils;
     }
 
     @Override
@@ -48,7 +51,6 @@ public class UserLinkServiceImpl implements UserLinkService {
             var digest = MessageDigest.getInstance("SHA-256");
             var bytes = digest.digest(rawString.getBytes(StandardCharsets.UTF_8));
             var hex = new String(Hex.encode(Arrays.copyOf(bytes, 8)));
-            System.out.println(hex.length());
             link.setHash(hex);
             link.setUserId(userId);
             userLinkRepository.save(link);
