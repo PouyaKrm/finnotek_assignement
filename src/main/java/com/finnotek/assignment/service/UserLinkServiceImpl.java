@@ -17,6 +17,7 @@ import java.util.Optional;
 
 import com.finnotek.assignment.service.dto.UserLinkResponeDTO;
 import com.finnotek.assignment.service.mapper.UserLinkMapper;
+import com.mongodb.MongoWriteException;
 import org.bouncycastle.util.encoders.Hex;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -56,7 +57,7 @@ public class UserLinkServiceImpl implements UserLinkService {
             link.setUserId(userId);
             userLinkRepository.save(link);
             return userLinkMapper.toDTO(link);
-        } catch (NoSuchAlgorithmException e) {
+        } catch (NoSuchAlgorithmException | MongoWriteException e) {
             throw Problem.builder().withStatus(Status.INTERNAL_SERVER_ERROR).withDetail("Internal error").build();
         }
     }
