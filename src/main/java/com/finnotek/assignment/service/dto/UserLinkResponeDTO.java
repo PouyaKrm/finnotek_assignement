@@ -5,6 +5,7 @@ import java.util.Date;
 public class UserLinkResponeDTO {
     private String hash;
     private String url;
+    private String shortened;
     private Date expireDate;
 
     public String getHash() {
@@ -29,5 +30,13 @@ public class UserLinkResponeDTO {
 
     public void setExpireDate(Date expireDate) {
         this.expireDate = expireDate;
+    }
+
+    public String getShortened() {
+        return shortened;
+    }
+
+    public void setShortened(String shortened) {
+        this.shortened = shortened;
     }
 }

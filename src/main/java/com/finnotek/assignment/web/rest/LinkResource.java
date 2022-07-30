@@ -1,5 +1,6 @@
 package com.finnotek.assignment.web.rest;
 
+import com.finnotek.assignment.config.Constants;
 import com.finnotek.assignment.service.UserLinkService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +10,7 @@ import java.net.URI;
 import java.net.http.HttpResponse;
 
 @RestController
-@RequestMapping("")
+@RequestMapping(Constants.SHORTEN_LINK_SERVE_URL)
 public class LinkResource {
 
     private final UserLinkService userLinkService;

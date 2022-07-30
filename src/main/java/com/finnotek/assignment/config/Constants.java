@@ -11,6 +11,7 @@ public final class Constants {
     public static final String SYSTEM = "system";
     public static final String DEFAULT_LANGUAGE = "en";
     public static final String USER_LINK_MONGO_COLLECTION_NAME = "UserLink";
+    public static final String SHORTEN_LINK_SERVE_URL = "/li/";
 
     private Constants() {}
 }
