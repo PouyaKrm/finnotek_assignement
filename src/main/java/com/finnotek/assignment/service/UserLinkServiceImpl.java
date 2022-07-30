@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import com.finnotek.assignment.service.dto.UserLinkResponeDTO;
 import com.finnotek.assignment.service.mapper.UserLinkMapper;
@@ -58,5 +59,11 @@ public class UserLinkServiceImpl implements UserLinkService {
         } catch (NoSuchAlgorithmException e) {
             throw Problem.builder().withStatus(Status.INTERNAL_SERVER_ERROR).withDetail("Internal error").build();
         }
+    }
+
+
+    @Override
+    public Optional<UserLink> findLinkByHash(String hash) {
+        return userLinkRepository.findUnexpiredLinkByHash(hash);
     }
 }

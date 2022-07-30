@@ -1,9 +1,10 @@
 package com.finnotek.assignment.domain;
 
+import com.finnotek.assignment.config.Constants;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document("UserLink")
+@Document(Constants.USER_LINK_MONGO_COLLECTION_NAME)
 public class UserLink {
 
     private String id;
